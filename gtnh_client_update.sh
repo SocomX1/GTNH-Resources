@@ -25,7 +25,7 @@ echo 'Deleting old data from copied instance...'
 cd "$TARGET_INSTANCE" || exit
 rm -r libraries patches mmc-pack.json
 cd .minecraft || exit
-rm -r config serverutilities mods scripts resources 2> dev/null # suppress errors as scripts and resources directories only exist in older versions
+rm -r config serverutilities mods scripts resources 2> /dev/null # suppress errors as scripts and resources directories only exist in older versions
 
 echo 'Downloading new client files...'
 cd "$TARGET_INSTANCE/.." || exit
