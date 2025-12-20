@@ -6,7 +6,7 @@
 SOURCE_INSTANCE='/mnt/c/Users/Socom/AppData/Roaming/PrismLauncher/instances/GT_New_Horizons_2.8.0_Java_17-25-migrated'
 
 # Path of the updated Prism instance this script will create
-TARGET_INSTANCE='/mnt/c/Users/Socom/AppData/Roaming/PrismLauncher/instances/GT_New_Horizons_2.8.3_Java_17-25-migrated'
+TARGET_INSTANCE='/mnt/c/Users/Socom/AppData/Roaming/PrismLauncher/instances/GTNH 2.8.3'
 
 # URL from which to download the new client
 CLIENT_DOWNLOAD='https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.8.3_Java_17-25.zip'
@@ -25,7 +25,7 @@ echo 'Deleting old data from copied instance...'
 cd "$TARGET_INSTANCE" || exit
 rm -r libraries patches mmc-pack.json
 cd .minecraft || exit
-rm -r config serverutilities mods scripts resources
+rm -r config serverutilities mods scripts resources 2> dev/null # suppress errors as scripts and resources directories only exist in older versions
 
 echo 'Downloading new client files...'
 cd "$TARGET_INSTANCE/.." || exit
