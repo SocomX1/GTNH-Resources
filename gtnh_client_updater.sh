@@ -18,9 +18,16 @@ PACK_NAME="${PACK_NAME//_/ }"
 TMPDIR="$(mktemp -d)"
 
 cleanup() {
-    echo "Deleting temp files..."
-    rm -rf "$TMPDIR"
-    echo "Done!"
+    local EXIT_CODE=$?
+
+    if (( EXIT_CODE != 0 )); then
+        echo "Error code $EXIT_CODE encountered, cleaning up temp files and aborting script!"
+        rm -rf "$TMPDIR" "$TARGET_INSTANCE" || true
+    else
+        echo "Cleaning up temp files..."
+        rm -rf "$TMPDIR" || true
+        echo "Done! $PACK_NAME is ready to play."
+    fi
 }
 trap cleanup EXIT
 
@@ -31,24 +38,27 @@ fi
 
 echo 'Copying client instance...'
 cp -r "$SOURCE_INSTANCE" "$TARGET_INSTANCE"
-cd "$TARGET_INSTANCE" || exit
+cd "$TARGET_INSTANCE" || exit 1
 sed -i "s/^name=.*/name=$PACK_NAME/" instance.cfg # update Prism instance name
 
 echo 'Deleting old data from copied instance...'
-cd "$TARGET_INSTANCE" || exit
+cd "$TARGET_INSTANCE" || exit 1
 rm -rf libraries patches mmc-pack.json
-cd .minecraft || exit
+cd .minecraft || exit 1
 rm -rf config serverutilities mods scripts resources
 
 echo 'Downloading new client files...'
-cd "$TMPDIR" || exit
+cd "$TMPDIR" || exit 1
 wget "$CLIENT_DOWNLOAD"
 
 echo 'Extracting new client files...'
-unzip -qo "$PACK_ARCHIVE"
+unzip -qo "$PACK_ARCHIVE" || {
+    echo "Error: failed to unzip $PACK_ARCHIVE. Is unzip installed?"
+    exit 1
+}
 
 echo 'Copying new client files to instance...'
-cd "$PACK_NAME" || exit
+cd "$PACK_NAME" || exit 1
 cp -r libraries patches mmc-pack.json "$TARGET_INSTANCE"
-cd .minecraft || exit
-cp -r config serverutilities mods "$TARGET_INSTANCE/.minecraft" # no idea why there are case sensitive directories for some configs, but I'm just letting those errors exist for now
+cd .minecraft || exit 1
+cp -r config serverutilities mods "$TARGET_INSTANCE/.minecraft" || true # no idea why there are case sensitive directories for some configs, ignoring these errors for now
