@@ -31,6 +31,7 @@ cleanup() {
     fi
 
     echo "Remember to download the backup archive from $BACKUP_ARCHIVE!"
+    echo "Also, reset the Vis relay :)"
 }
 trap cleanup EXIT
 
