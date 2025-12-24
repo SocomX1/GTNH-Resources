@@ -3,13 +3,13 @@
 # MAKE SURE YOUR PRISM LAUNCHER IS CLOSED WHILE RUNNING THIS SCRIPT
 
 # Path of the Prism instance you want to clone
-SOURCE_INSTANCE='/mnt/c/Users/Socom/AppData/Roaming/PrismLauncher/instances/GT_New_Horizons_2.8.0_Java_17-25-migrated'
+SOURCE_INSTANCE='/mnt/c/Users/Socom/AppData/Roaming/PrismLauncher/instances/GTNH 2.8.3'
 
 # Path of the updated Prism instance this script will create
-TARGET_INSTANCE='/mnt/c/Users/Socom/AppData/Roaming/PrismLauncher/instances/GTNH 2.8.3'
+TARGET_INSTANCE='/mnt/c/Users/Socom/AppData/Roaming/PrismLauncher/instances/GTNH 2.8.4'
 
 # URL from which to download the new client
-CLIENT_DOWNLOAD='https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.8.3_Java_17-25.zip'
+CLIENT_DOWNLOAD='https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.8.4_Java_17-25.zip'
 
 # Don't touch
 PACK_ARCHIVE="$(basename "$CLIENT_DOWNLOAD")"
